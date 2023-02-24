@@ -80,6 +80,6 @@ Complete - view project-6/contracts/coffeeaccesscontrol/FarmerRole.sol and Roles
 
 ## Test smart contract code coverage
 
-Complete
+Incomplete
 
 ## Deploy smart contract on a public test network (Sepolia)
