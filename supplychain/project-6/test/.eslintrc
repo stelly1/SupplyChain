@@ -1,0 +1,9 @@
+//added from star notary project
+{
+  "globals": {
+    "assert": true,
+    "artifacts": true,
+    "contract": true,
+    "it": true
+  }
+}
