@@ -2,9 +2,14 @@
 
 This repository containts an Ethereum DApp that demonstrates a Supply Chain flow between a Seller and Buyer for caffeine beans. The user story is similar to any commonly used supply chain process. A Seller can add items to the inventory system stored in the blockchain. A Buyer can purchase such items from the inventory system. Additionally a Seller can mark an item as Shipped, and similarly a Buyer can mark an item as Received.
 
+## Boilerplate Code
+
+https://github.com/udacity/nd1309-Project-6b-Example-Template
+Instructed to use PK provided: spirit, supply, whale...
+
 ## Libraries Used
 
-Truffle v5.5.16 (core: 5.5.16), Node v18.12.1, Web3.js v1.5.3, Ganache v^7.1.0, Solidity v0.8.0
+Truffle v4.14.14, Node v18.12.1, Web3.js v1.7.5, Ganache v^7.1.0, Solidity v0.8.0
 
 ## Diagrams
 
@@ -46,7 +51,7 @@ Adopted to host client application and utilize node server
 
 Adopted to test smart contracts
 
-### web3: v^1.8.2
+### web3: v^1.7.5
 
 Adopted to interact with ethereum nodes
 
@@ -83,3 +88,11 @@ Complete - view project-6/contracts/coffeeaccesscontrol/FarmerRole.sol and Roles
 Complete
 
 ## Deploy smart contract on a public test network (Sepolia)
+
+https://sepolia.etherscan.io/address/0x5f7e88d34633dbf2da70a52422a18b757c194561
+
+## Modify client code to interact with smart contracts
+
+From Udacity instructions, "The coffee example in the boilerplate provides this code for you"
+
+I did reference this Mentor response on front-ends to download web3.min.js: https://knowledge.udacity.com/questions/539158 which led me here: https://gist.github.com/andresaaap/29b2d4a4afd842929782f4f28562d7a8 and I then modified the HTML file
