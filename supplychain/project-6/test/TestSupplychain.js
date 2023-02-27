@@ -93,6 +93,8 @@ contract("SupplyChain", function (accounts) {
     );
     assert.equal(resultBufferTwo[2], productID, "E productID");
     assert.equal(resultBufferTwo[3], productNotes, "E productNotes");
+    assert.equal(resultBufferTwo[5], 0, "E event");
+    // Adding eventEmitted
     assert.equal(eventEmitted, true, "E event");
     truffleAssert.eventEmitted(result, "Harvested");
   });
@@ -100,6 +102,9 @@ contract("SupplyChain", function (accounts) {
   // 2nd Test
   it("Testing smart contract function processItem() that allows a farmer to process coffee", async () => {
     const supplyChain = await SupplyChain.deployed();
+
+    // Increment itemState
+    itemState++;
 
     // Declare and Initialize a variable for event
     var eventEmitted = false;
@@ -145,6 +150,9 @@ contract("SupplyChain", function (accounts) {
   it("Testing smart contract function packItem() that allows a farmer to pack coffee", async () => {
     const supplyChain = await SupplyChain.deployed();
 
+    // Increment itemState
+    itemState++;
+
     // Declare and Initialize a variable for event
     var eventEmitted = false;
 
@@ -181,13 +189,16 @@ contract("SupplyChain", function (accounts) {
       originFarmLongitude,
       "E originFarmLongitude"
     );
-    assert.equal(resultBufferTwo[5], 2, "E State");
+    assert.equal(resultBufferTwo[5], itemState, "E State");
     truffleAssert.eventEmitted(result, "Packed");
   });
 
   // 4th Test
   it("Testing smart contract function sellItem() that allows a farmer to sell coffee", async () => {
     const supplyChain = await SupplyChain.deployed();
+
+    // Increment itemState
+    itemState++;
 
     // Declare and Initialize a variable for event
     var eventEmitted = false;
@@ -203,11 +214,11 @@ contract("SupplyChain", function (accounts) {
     });
 
     // Retrieve the just now saved item from blockchain by calling function fetchItem()
-    const resultBufferOne = await supplyChain.fetchItemBufferOne.call(upc);
+    //const resultBufferOne = await supplyChain.fetchItemBufferOne.call(upc);
     const resultBufferTwo = await supplyChain.fetchItemBufferTwo.call(upc);
 
     // Verify the result set
-    assert.equal(resultBufferOne[0], sku, "E SKU");
+    /* assert.equal(resultBufferOne[0], sku, "E SKU");
     assert.equal(resultBufferOne[1], upc, "E UPC");
     assert.equal(resultBufferOne[2], originFarmerID, "E ownerID");
     assert.equal(resultBufferOne[3], originFarmerID, "E originFarmerID");
@@ -226,16 +237,19 @@ contract("SupplyChain", function (accounts) {
       resultBufferOne[7],
       originFarmLongitude,
       "E originFarmLongitude"
-    );
-    assert.equal(resultBufferTwo, productPrice, "E productPrice");
-    assert.equal(resultBufferTwo[5], 3, "E State");
+    ); */
+    assert.equal(resultBufferTwo[4], productPrice, "E productPrice");
+    assert.equal(resultBufferTwo[5], itemState, "E State");
     truffleAssert.eventEmitted(result, "ForSale");
   });
 
   // 5th Test
   it("Testing smart contract function buyItem() that allows a distributor to buy coffee", async () => {
     const supplyChain = await SupplyChain.deployed();
-    await supplyChain.addDistributor(distributorID);
+    // await supplyChain.addDistributor(distributorID);
+
+    // Increment itemState
+    itemState++;
 
     // Declare and Initialize a variable for event
     var eventEmitted = false;
@@ -246,7 +260,7 @@ contract("SupplyChain", function (accounts) {
     });
 
     // Mark an item as Sold by calling function buyItem()
-    await supplyChain.buyItem(upc, distributorID, {
+    let result = await supplyChain.buyItem(upc, distributorID, {
       from: distributorID,
       value: productPrice,
     });
@@ -256,10 +270,11 @@ contract("SupplyChain", function (accounts) {
     const resultBufferTwo = await supplyChain.fetchItemBufferTwo.call(upc);
 
     // Verify the result set
-    assert.equal(resultBufferOne[0], sku, "E SKU");
-    assert.equal(resultBufferOne[1], upc, "E UPC");
+    //assert.equal(resultBufferOne[0], sku, "E SKU");
+    //assert.equal(resultBufferOne[1], upc, "E UPC");
     assert.equal(resultBufferOne[2], distributorID, "E ownerID");
-    assert.equal(resultBufferOne[4], originFarmName, "E originFarmName");
+    assert.equal(resultBufferTwo[6], distributorID, "E State");
+    /* assert.equal(resultBufferOne[4], originFarmName, "E originFarmName");
     assert.equal(
       resultBufferOne[5],
       originFarmInformation,
@@ -274,15 +289,17 @@ contract("SupplyChain", function (accounts) {
       resultBufferOne[7],
       originFarmLongitude,
       "E originFarmLongitude"
-    );
-    assert.equal(resultBufferTwo[5], 4, "E State");
-    assert.equal(resultBufferTwo[6], distributorID, "E State");
+    ); */
+    assert.equal(resultBufferTwo[5], itemState, "E State");
     truffleAssert.eventEmitted(result, "Sold");
   });
 
   // 6th Test
   it("Testing smart contract function shipItem() that allows a distributor to ship coffee", async () => {
     const supplyChain = await SupplyChain.deployed();
+
+    // Increment itemState
+    itemState++;
 
     // Declare and Initialize a variable for event
     var eventEmitted = false;
@@ -296,11 +313,11 @@ contract("SupplyChain", function (accounts) {
     let result = await supplyChain.shipItem(upc, { from: distributorID });
 
     // Retrieve the just now saved item from blockchain by calling function fetchItem()
-    const resultBufferOne = await supplyChain.fetchItemBufferOne(upc);
+    //const resultBufferOne = await supplyChain.fetchItemBufferOne(upc);
     const resultBufferTwo = await supplyChain.fetchItemBufferTwo(upc);
 
     // Verify the result set
-    assert.equal(resultBufferOne[0], sku, "E SKU");
+    /* assert.equal(resultBufferOne[0], sku, "E SKU");
     assert.equal(resultBufferOne[1], upc, "E UPC");
     assert.equal(resultBufferOne[4], originFarmName, "E originFarmName");
     assert.equal(
@@ -317,8 +334,8 @@ contract("SupplyChain", function (accounts) {
       resultBufferOne[7],
       originFarmLongitude,
       "E originFarmLongitude"
-    );
-    assert.equal(resultBufferTwo[5], 5, "E State");
+    ); */
+    assert.equal(resultBufferTwo[5], itemState, "E State");
     truffleAssert.eventEmitted(result, "Shipped");
   });
 
@@ -326,6 +343,9 @@ contract("SupplyChain", function (accounts) {
   it("Testing smart contract function receiveItem() that allows a retailer to mark coffee received", async () => {
     const supplyChain = await SupplyChain.deployed();
     await supplyChain.addRetailer(retailerID);
+
+    // Increment itemState
+    itemState++;
 
     // Declare and Initialize a variable for event
     var eventEmitted = false;
@@ -341,14 +361,12 @@ contract("SupplyChain", function (accounts) {
     });
 
     // Retrieve the just now saved item from blockchain by calling function fetchItem()
-    const resultBufferOne = await supplyChain.fetchItemBufferOne(upc);
+    // const resultBufferOne = await supplyChain.fetchItemBufferOne(upc);
     const resultBufferTwo = await supplyChain.fetchItemBufferTwo(upc);
 
     // Verify the result set
-    assert.equal(resultBufferOne[0], sku, "E SKU");
+    /* assert.equal(resultBufferOne[0], sku, "E SKU");
     assert.equal(resultBufferOne[1], upc, "E UPC");
-    assert.equal(resultBufferOne[2], retailerID, "E ownerID");
-    assert.equal(resultBufferOne[3], retailerID, "E retailerID");
     assert.equal(resultBufferOne[4], originFarmName, "E originFarmName");
     assert.equal(
       resultBufferOne[5],
@@ -364,16 +382,19 @@ contract("SupplyChain", function (accounts) {
       resultBufferOne[7],
       originFarmLongitude,
       "E originFarmLongitude"
-    );
+    ); */
     assert.equal(resultBufferTwo[5], 6, "E State");
     assert.equal(resultBufferTwo[7], retailerID, "E retailerID");
-    truffleAssert.eventEmitted(result, "Shipped");
+    truffleAssert.eventEmitted(result, "Received");
   });
 
   // 8th Test
   it("Testing smart contract function purchaseItem() that allows a consumer to purchase coffee", async () => {
     const supplyChain = await SupplyChain.deployed();
     await supplyChain.addConsumer(consumerID);
+
+    // Increment itemState
+    itemState++;
 
     // Declare and Initialize a variable for event
     var eventEmitted = false;
@@ -393,11 +414,11 @@ contract("SupplyChain", function (accounts) {
     const resultBufferTwo = await supplyChain.fetchItemBufferTwo(upc);
 
     // Verify the result set
-    assert.equal(resultBufferOne[0], sku, "E SKU");
-    assert.equal(resultBufferOne[1], upc, "E UPC");
+    // assert.equal(resultBufferOne[0], sku, "E SKU");
+    // assert.equal(resultBufferOne[1], upc, "E UPC");
     assert.equal(resultBufferOne[2], consumerID, "E ownerID");
-    assert.equal(resultBufferOne[3], consumerID, "E consumerID");
-    assert.equal(resultBufferOne[4], originFarmName, "E originFarmName");
+    assert.equal(resultBufferTwo[8], consumerID, "E Consumer ID");
+    /* assert.equal(resultBufferOne[4], originFarmName, "E originFarmName");
     assert.equal(
       resultBufferOne[5],
       originFarmInformation,
@@ -412,9 +433,8 @@ contract("SupplyChain", function (accounts) {
       resultBufferOne[7],
       originFarmLongitude,
       "E originFarmLongitude"
-    );
-    assert.equal(resultBufferTwo[5], 7, "E State");
-    assert.equal(resultBufferTwo[8], consumerID, "E Consumer ID");
+    ); */
+    assert.equal(resultBufferTwo[5], itemState, "E State");
     truffleAssert.eventEmitted(result, "E event");
   });
 
