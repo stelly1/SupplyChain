@@ -356,7 +356,7 @@ contract("SupplyChain", function (accounts) {
     });
 
     // Mark an item as Sold by calling function receiveItem()
-    let result = await supplyChain.receiveItem(upc, retailerID, {
+    var result = await supplyChain.receiveItem(upc, {
       from: retailerID,
     });
 
@@ -405,7 +405,7 @@ contract("SupplyChain", function (accounts) {
     });
 
     // Mark an item as Sold by calling function purchaseItem()
-    let result = await supplyChain.purchaseItem(upc, consumerID, {
+    let result = await supplyChain.purchaseItem(upc, {
       from: consumerID,
     });
 
@@ -435,7 +435,7 @@ contract("SupplyChain", function (accounts) {
       "E originFarmLongitude"
     ); */
     assert.equal(resultBufferTwo[5], itemState, "E State");
-    truffleAssert.eventEmitted(result, "E event");
+    truffleAssert.eventEmitted(result, "Purchased");
   });
 
   // 9th Test
