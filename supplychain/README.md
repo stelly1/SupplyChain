@@ -11,6 +11,8 @@ Instructed to use PK provided: spirit, supply, whale...
 
 Truffle v4.14.14, Node v18.12.1, Web3.js v1.7.5, Ganache v^7.1.0, Solidity v0.8.0
 
+Please note that IPFS was not utilized
+
 ## Diagrams
 
 ### Activity
@@ -89,10 +91,62 @@ Complete
 
 ## Deploy smart contract on a public test network (Sepolia)
 
+### Contract Address
+
 https://sepolia.etherscan.io/address/0x5f7e88d34633dbf2da70a52422a18b757c194561
+
+### Transaction ID
+
+https://sepolia.etherscan.io/tx/0x4f2a99581334aa5ecf61c8097a31cfcc36be2553beb613fd7193aa239e5838b2
 
 ## Modify client code to interact with smart contracts
 
 From Udacity instructions, "The coffee example in the boilerplate provides this code for you"
 
 I did reference this Mentor response on front-ends to download web3.min.js: https://knowledge.udacity.com/questions/539158 which led me here: https://gist.github.com/andresaaap/29b2d4a4afd842929782f4f28562d7a8 and I then modified the HTML file
+
+## Describing the dApp
+
+### Product Overview
+
+The product overview will allow users to change both the SKU and UPC number via a pop-up toggle or direct editing. By inserting the Current Owner ID address, users can fetch data about product's (coffee) lifecycle
+
+### Farm Details
+
+Every farmer has an **address** that must be inputted and queried against for authenticity. Subsequent Farmer and Farm information will be entered to create a trail of provenance, such as: **name, information** (read as location), **latitude**, and **longitude**.
+
+#### Harvest
+
+The **Harvest** button will allow the Farmer to log the harvest event to the blockchain
+
+#### Process
+
+The **Process** button will allow the Farmer to log the process event to the blockchain
+
+#### Pack
+
+The **Pack** button will allow the Farmer to log the pack event to the blockchain
+
+#### ForSale
+
+The **ForSale** button will allow the Farmer to log the forsale event to the blockchain. Once marked as ForSale, the product (coffee) may be purchased by the distributor
+
+### Product Details
+
+There are three primary roles involved within the product details function that each require separate inputted wallet addresses: **Distributor ID, Retailer ID, and Consumer ID**. The user will log **notes** for the product (description) and its **price** (in ETH). Similar to editing the SKU and UPC, price may be toggled or edited directly
+
+#### Buy
+
+The **Buy** button will allow the distributor to buy the product (coffee) from the farmer and log the event to the blockchain.
+
+#### Ship
+
+The **Ship** button will allow the distributor to ship the product (coffee) from the distributor to the retailer and log the event on the blockchain
+
+#### Receive
+
+The **Receive** button will allow the retailer to mark the product received (coffee) from the distributor and log the event to the blockchain
+
+#### Purchase
+
+The **Purchase** button will allow the consumer to purchase the product (coffee) from the retailer and log the event to the blockchain

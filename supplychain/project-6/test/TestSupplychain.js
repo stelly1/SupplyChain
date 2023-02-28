@@ -260,7 +260,7 @@ contract("SupplyChain", function (accounts) {
     });
 
     // Mark an item as Sold by calling function buyItem()
-    let result = await supplyChain.buyItem(upc, distributorID, {
+    let result = await supplyChain.buyItem(upc, {
       from: distributorID,
       value: productPrice,
     });
